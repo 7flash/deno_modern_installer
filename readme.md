@@ -1,7 +1,7 @@
 ## ⚙️ Fork of [deno_installer](https://github.com/marc2332/deno_installer)
 Fork of original `deno_installer` module, with fixes that makes it up-to-date with the latest Deno's releases.
 
-Latest release: https://github.com/ovsky/deno_installer/releases/
+Latest release: https://github.com/ovsky/deno_modern_installer/releases/
 
 
 ## 📦 Port of [tauri-bundler](https://github.com/tauri-apps/tauri/tree/dev/tooling/bundler)
@@ -33,7 +33,7 @@ Before making the installer make sure you have your project as:
 Create a file `build.ts`, paste and modify as you wish:
 
 ```ts
-import { Installer } from "https://deno.land/x/installer/mod.ts";
+import { Installer } from "https://deno.land/x/modern_installer/mod.ts";
 
 const installer = new Installer({
   out_path: `${Deno.cwd()}/dist`,
@@ -58,7 +58,7 @@ const installer = new Installer({
       "examples/oak/icons/icon.ico",
     ], // It will look under /icons if the array is empty
     resources: [], // Not tested
-    copyright: "2022",
+    copyright: "2023",
     short_description: "Short description!",
     long_description: "Looooooooooong description!",
   },
