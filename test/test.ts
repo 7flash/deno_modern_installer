@@ -10,8 +10,8 @@ const installer = new Installer({
     product_name: "TestApp",
     version: "1.0.0",
     description: "woooow",
-    homepage: "https://github.com/marc2332",
-    authors: ["Marc Espín"],
+    homepage: "https://github.com/ovsky",
+    authors: ["Author"],
     default_run: "TestApp",
   },
   bundle: {
@@ -57,9 +57,7 @@ Deno.test(`Installer created ${Deno.build.os}`, async () => {
         let exists = true;
         try {
           // Check Windows installer
-          await Deno.readFile(
-            `${dist}/msi/TestApp_1.0.0_x64_en-US.msi`,
-          );
+          await Deno.readFile(`${dist}/msi/TestApp_1.0.0_x64_en-US.msi`);
         } catch {
           exists = false;
         }
@@ -71,13 +69,9 @@ Deno.test(`Installer created ${Deno.build.os}`, async () => {
         let exists = true;
         try {
           // Check Debian installer
-          await Deno.readFile(
-            `${dist}/deb/TestApp_1.0.0_amd64.deb`,
-          );
+          await Deno.readFile(`${dist}/deb/TestApp_1.0.0_amd64.deb`);
           // Check AppImage installer
-          await Deno.readFile(
-            `${dist}/appimage/TestApp_1.0.0_amd64.AppImage`,
-          );
+          await Deno.readFile(`${dist}/appimage/TestApp_1.0.0_amd64.AppImage`);
         } catch {
           exists = false;
         }
@@ -90,9 +84,7 @@ Deno.test(`Installer created ${Deno.build.os}`, async () => {
         let exists = true;
         try {
           // Check MacOS installer
-          await Deno.readFile(
-            `${dist}/dmg/TestApp_1.0.0_x64.dmg`,
-          );
+          await Deno.readFile(`${dist}/dmg/TestApp_1.0.0_x64.dmg`);
         } catch {
           exists = false;
         }

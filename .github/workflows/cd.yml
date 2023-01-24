@@ -2,10 +2,10 @@ name: Release libs
 
 on:
   workflow_dispatch:
-    branches: [ main ]
+    branches: [main]
     inputs:
       version:
-        description: 'Version'     
+        description: "Version"
         required: true
 
 jobs:
@@ -17,63 +17,63 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
 
-    - name: Build
-      uses: actions-rs/cargo@v1
-      with:
-        command: build
-        args: --release
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
 
-    - if: runner.os == 'MacOS'
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        target: aarch64-apple-darwin
+      - if: runner.os == 'MacOS'
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: aarch64-apple-darwin
 
-    - if: runner.os == 'MacOS'
-      uses: actions-rs/cargo@v1
-      with:
-        command: build
-        args: --release --target=aarch64-apple-darwin
+      - if: runner.os == 'MacOS'
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release --target=aarch64-apple-darwin
 
-    - name: Create universal lib for macOS
-      if: runner.os == 'MacOS'
-      run: |
-        mkdir -p target/tmp
-        mv target/release/libdeno_installer.dylib target/tmp/libdeno_installer.dylib
+      - name: Create universal lib for macOS
+        if: runner.os == 'MacOS'
+        run: |
+          mkdir -p target/tmp
+          mv target/release/libdeno_modern_installer.dylib target/tmp/libdeno_modern_installer.dylib
 
-        lipo -create -output target/release/libdeno_installer.dylib \
-          target/tmp/libdeno_installer.dylib \
-          target/aarch64-apple-darwin/release/libdeno_installer.dylib
+          lipo -create -output target/release/libdeno_modern_installer.dylib \
+            target/tmp/libdeno_modern_installer.dylib \
+            target/aarch64-apple-darwin/release/libdeno_modern_installer.dylib
 
-    - name: Release MacOS lib
-      if: runner.os == 'MacOS'
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: target/release/libdeno_installer.dylib
-        tag: ${{ github.event.inputs.version }}
-        overwrite: true
+      - name: Release MacOS lib
+        if: runner.os == 'MacOS'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/release/libdeno_modern_installer.dylib
+          tag: ${{ github.event.inputs.version }}
+          overwrite: true
 
-    - name: Release Linux lib
-      if: runner.os == 'Linux'
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: target/release/libdeno_installer.so
-        tag: ${{ github.event.inputs.version }}
-        overwrite: true
+      - name: Release Linux lib
+        if: runner.os == 'Linux'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/release/libdeno_modern_installer.so
+          tag: ${{ github.event.inputs.version }}
+          overwrite: true
 
-    - name: Release Windows lib
-      if: runner.os == 'Windows'
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: target/release/deno_installer.dll
-        tag: ${{ github.event.inputs.version }}
-        overwrite: true
+      - name: Release Windows lib
+        if: runner.os == 'Windows'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/release/deno_modern_installer.dll
+          tag: ${{ github.event.inputs.version }}
+          overwrite: true

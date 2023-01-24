@@ -7,8 +7,8 @@ const installer = new Installer({
     product_name: "MyApp",
     version: "1.0.0",
     description: "woooow",
-    homepage: "https://github.com/marc2332",
-    authors: ["Marc Espín"],
+    homepage: "https://github.com/ovsky",
+    authors: ["Author"],
     default_run: "MyApp",
   },
   bundle: {
