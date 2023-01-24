@@ -1,4 +1,5 @@
-target
+target/release/*/
+target/*.*
 *.exe
 dist
 WixTools
