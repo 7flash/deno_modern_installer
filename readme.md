@@ -1,3 +1,9 @@
+## ⚙️ Fork of [deno_installer](https://github.com/marc2332/deno_installer)
+Fork of original `deno_installer` module, with fixes that makes it up-to-date with the latest Deno's releases.
+
+Latest release: https://github.com/ovsky/deno_installer/releases/
+
+
 ## 📦 Port of [tauri-bundler](https://github.com/tauri-apps/tauri/tree/dev/tooling/bundler)
 
 You can now easily create installers for your Deno apps, thanks to the amazing
@@ -22,7 +28,7 @@ Before making the installer make sure you have your project as:
 |   +-- (See note for Linux)
 ``` 
 
-> Note: For **Linux** you will also need some special [icons](https://github.com/marc2332/deno_installer/tree/main/examples/oak/icons).
+> Note: For **Linux** you will also need some special [icons](https://github.com/ovsky/deno_installer/tree/main/examples/oak/icons).
 
 Create a file `build.ts`, paste and modify as you wish:
 
@@ -38,7 +44,7 @@ const installer = new Installer({
     product_name: "MyApp",
     version: "1.0.0",
     description: "App made by a denosaur",
-    homepage: "https://github.com/marc2332/deno_installer",
+    homepage: "https://github.com/ovsky/deno_modern_installer",
     authors: ["Denosaur"],
     default_run: "MyApp",
   },
