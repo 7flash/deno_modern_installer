@@ -1,10 +1,21 @@
-## ⚙️ Fork of [deno_installer](https://github.com/marc2332/deno_installer)
+# ✳️ Modern Deno Installer - Installation Package Creator
+
+![icon](https://i.postimg.cc/Hs2Qmxf8/icon-modern-repack.png)
+
+Easily create Deno installation package for any OS using single configuration script.
+
+Made in cooperation with original [deno_installer](https://github.com/marc2332/deno_installer) author.
+
+
+---
+
+## 📦 Fork of [deno_installer](https://github.com/marc2332/deno_installer)
 Fork of original `deno_modern_installer` module, with fixes that makes it up-to-date with the latest Deno's releases.
 
 Latest release: https://github.com/ovsky/deno_modern_installer/releases/
 
 
-## 📦 Port of [tauri-bundler](https://github.com/tauri-apps/tauri/tree/dev/tooling/bundler)
+## ⚙️ Port of [tauri-bundler](https://github.com/tauri-apps/tauri/tree/dev/tooling/bundler)
 
 You can now easily create installers for your Deno apps, thanks to the amazing
 work of [Tauri](https://github.com/tauri-apps/tauri/tree/dev/tooling/bundler) 💪
@@ -16,7 +27,7 @@ work of [Tauri](https://github.com/tauri-apps/tauri/tree/dev/tooling/bundler) �
 That beind said, feel free to contribute. If you have any feature idea see
 [Contributing](#Contributing) :)
 
-## Demo
+## 📗 Demo:
 
 Before making the installer make sure you have your project as:
 
@@ -67,7 +78,7 @@ const installer = new Installer({
 await installer.createInstaller();
 ```
 
-Run:
+🎁 Run:
 
 ```shell
 deno run -A --unstable build.ts
@@ -75,7 +86,7 @@ deno run -A --unstable build.ts
 
 The installer path will be printed out.
 
-## Contributing
+## 📝 Contributing:
 
 Requisites:
 
