@@ -1,6 +1,4 @@
 // Auto-generated with deno_bindgen
-import { CachePolicy, prepare } from "https://deno.land/x/plug@0.5.2/plug.ts"
-
 function encode(v: string | Uint8Array): Uint8Array {
   if (typeof v !== "string") return v
   return new TextEncoder().encode(v)
@@ -10,8 +8,9 @@ function decode(v: Uint8Array): string {
   return new TextDecoder().decode(v)
 }
 
+// deno-lint-ignore no-explicit-any
 function readPointer(v: any): Uint8Array {
-  const ptr = new Deno.UnsafePointerView(v as bigint)
+  const ptr = new Deno.UnsafePointerView(v)
   const lengthBe = new Uint8Array(4)
   const view = new DataView(lengthBe.buffer)
   ptr.copyInto(lengthBe, 0)
@@ -21,37 +20,38 @@ function readPointer(v: any): Uint8Array {
 }
 
 const url = new URL("../target/release", import.meta.url)
-let uri = url.toString()
+
+let uri = url.pathname
 if (!uri.endsWith("/")) uri += "/"
 
-let darwin: string | { aarch64: string; x86_64: string } = uri
-  + "libdeno_modern_installer.dylib"
-
-if (url.protocol !== "file:") {
-  // Assume that remote assets follow naming scheme
-  // for each macOS artifact.
-  darwin = {
-    aarch64: uri + "libdeno_modern_installer_arm64.dylib",
-    x86_64: uri + "libdeno_modern_installer.dylib",
+// https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya#parameters
+if (Deno.build.os === "windows") {
+  uri = uri.replace(/\//g, "\\")
+  // Remove leading slash
+  if (uri.startsWith("\\")) {
+    uri = uri.slice(1)
   }
 }
 
-const opts = {
-  name: "deno_modern_installer",
-  urls: {
-    darwin,
+const { symbols } = Deno.dlopen(
+  {
+    darwin: uri + "libdeno_modern_installer.dylib",
     windows: uri + "deno_modern_installer.dll",
     linux: uri + "libdeno_modern_installer.so",
+    freebsd: uri + "libdeno_modern_installer.so",
+    netbsd: uri + "libdeno_modern_installer.so",
+    aix: uri + "libdeno_modern_installer.so",
+    solaris: uri + "libdeno_modern_installer.so",
+    illumos: uri + "libdeno_modern_installer.so",
+  }[Deno.build.os],
+  {
+    create_installer: {
+      parameters: ["buffer", "usize"],
+      result: "void",
+      nonblocking: false,
+    },
   },
-  policy: undefined,
-}
-const _lib = await prepare(opts, {
-  create_installer: {
-    parameters: ["pointer", "usize"],
-    result: "void",
-    nonblocking: false,
-  },
-})
+)
 export type BundleSettingsInstaller = {
   identifier: string | undefined | null
   icon: Array<string> | undefined | null
@@ -76,8 +76,8 @@ export type PackageSettingsInstaller = {
 }
 export function create_installer(a0: InstallerSettings) {
   const a0_buf = encode(JSON.stringify(a0))
-  const a0_ptr = Deno.UnsafePointer.of(a0_buf)
-  let rawResult = _lib.symbols.create_installer(a0_ptr, a0_buf.byteLength)
+
+  const rawResult = symbols.create_installer(a0_buf, a0_buf.byteLength)
   const result = rawResult
   return result
 }
