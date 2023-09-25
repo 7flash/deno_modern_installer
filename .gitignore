@@ -5,3 +5,4 @@ dist
 WixTools
 .gitignore
 app
+libdeno_modern_installer.d
